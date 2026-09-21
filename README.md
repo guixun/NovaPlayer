@@ -39,7 +39,7 @@
 
 | 下载渠道 | 下载方式 | 适用说明 |
 | :--- | :--- | :--- |
-| **国内高速镜像 (推荐)** | [👉 点击一键高速下载 APK](https://mirror.ghproxy.com/https://github.com/guixun/NovaPlayer/releases/download/v1.0.0/app-release.apk) | 国内直连不限速，免翻免登录 |
+| **国内高速镜像 (推荐)** | [👉 点击一键高速下载 APK](https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.0/app-release.apk) | 国内直连不限速，免翻免登录 |
 | **GitHub 官方 Releases** | [👉 前往 GitHub Releases 页面](https://github.com/guixun/NovaPlayer/releases/latest) | 全球节点直接分发 |
 | **备用国内网盘** | [👉 前往 123 云盘备用下载](https://4006535509.share.123pan.cn/123pan/X5TEwh-XSk1v) | 备用下载通道 (免登录直连) |
 
