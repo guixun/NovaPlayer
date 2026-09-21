@@ -60,7 +60,17 @@ NovaPlayer 正在持续快速迭代中，欢迎所有尝鲜玩家加入讨论群
 
 ## ☕ 支持开发者 / Sponsor
 
-NovaPlayer 是由独立开发者在业余时间完全自主设计开发的非开源项目。如果你觉得它对你的家庭影音观影带来了便利，欢迎在 App 内请作者喝杯咖啡 ☕，你的支持是项目持续维护的最大动力！
+NovaPlayer 是由独立开发者在业余时间完全自主维护的工具。如果它改善了你的局域网家庭观影体验，欢迎请作者喝杯咖啡 ☕，你的暖心支持是项目持续迭代与优化的最大动力！
+
+<details>
+<summary>👉 <b>点击展开微信赞赏码 (WeChat Sponsor)</b></summary>
+<br>
+<p align="center">
+  <img src="assets/wechat_sponsor.png" width="220" alt="NovaPlayer 微信赞赏码">
+  <br>
+  <sub>截图后可在微信「扫一扫」中从相册选取识别 · 感谢支持！</sub>
+</p>
+</details>
 
 ---
 
