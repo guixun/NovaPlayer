@@ -41,7 +41,7 @@
 | :--- | :--- | :--- |
 | **国内高速镜像 (推荐)** | [👉 点击一键高速下载 APK](https://mirror.ghproxy.com/https://github.com/guixun/NovaPlayer/releases/download/v1.0.0/app-release.apk) | 国内直连不限速，免翻免登录 |
 | **GitHub 官方 Releases** | [👉 前往 GitHub Releases 页面](https://github.com/guixun/NovaPlayer/releases/latest) | 全球节点直接分发 |
-| **备用国内网盘** | [👉 前往 123 云盘备用下载](https://www.123pan.com) | 备用下载通道 |
+| **备用国内网盘** | [👉 前往 123 云盘备用下载](https://4006535509.share.123pan.cn/123pan/X5TEwh-XSk1v) | 备用下载通道 (免登录直连) |
 
 > ⚠️ **关于安卓手机“报毒 / 未知来源”拦截说明**：
 > NovaPlayer 为个人独立开发应用，目前尚未上架各大品牌应用市场。部分国产手机（华为、小米、OPPO、vivo 等）在安装时若弹出“未经安全检测 / 未知来源应用”等提示，属于系统的常规防御机制。请选择**“继续安装 / 已知晓风险”**即可，本应用保证无任何后门与侵权行为。
