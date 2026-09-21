@@ -1,7 +1,7 @@
 # NovaPlayer 🎬
 
 <p align="center">
-  <strong>一款纯粹、轻量、无广告的跨平台局域网 (SMB) 与本地媒体播放器</strong>
+  <strong>一款支持竖屏上下滑动刷剧、纯粹轻量的跨平台局域网 (SMB) 与本地媒体播放器</strong>
 </p>
 
 <p align="center">
@@ -9,6 +9,7 @@
     <img src="https://img.shields.io/github/v/release/guixun/NovaPlayer?color=orange&label=Release" alt="Release">
   </a>
   <img src="https://img.shields.io/badge/Platform-Android-green.svg" alt="Platform">
+  <img src="https://img.shields.io/badge/UX-Single--Hand%20Swipe-purple.svg" alt="UX">
   <img src="https://img.shields.io/badge/License-Proprietary-blue.svg" alt="License">
   <img src="https://img.shields.io/badge/AdFree-100%25-red.svg" alt="AdFree">
 </p>
@@ -17,19 +18,25 @@
 
 ## 📖 简介 / Introduction
 
-**NovaPlayer** 是专为家庭影视发烧友、NAS 玩家以及追求纯粹播放体验的用户打造的跨平台媒体播放器。
+**NovaPlayer** 专为家庭影视发烧友、NAS 玩家、短剧追剧党以及追求极致单手操作体验的用户打造。
 
-市面上许多播放器充斥着开屏广告、冗余社交和复杂配置。NovaPlayer 专注于**局域网共享媒体播放与本地文件管理**，秒级连接你的 Windows 共享、群晖/威联通/极空间 NAS，无需繁琐挂载，躺在床上畅享大屏原画影音。
+传统播放器几乎都只能“双手横屏握持”，看完一个视频还得退回目录重新找下一个，极其繁琐笨重。NovaPlayer 创新性地将**短视频信息流交互与 NAS 局域网媒体结合**：
+👉 **像刷短视频一样上下滑动刷自己的本地和 NAS 视频，躺在床上单手大拇指就能刷完一整部剧！**
 
 ---
 
-## ✨ 核心特性 / Features
+## ✨ 核心杀手级特性 / Killer Features
 
-- ⚡ **原生 SMB 极速直连**：原生支持 SMB 协议，支持局域网自动发现（扫描 445 端口），告别繁琐的手动配置。
-- 🚫 **纯粹零干扰**：0 开屏广告、0 后台流氓进程、无任何诱导推广，纯净启动。
-- 🎨 **现代 Material 3 美学**：原生暗黑模式适配，精美卡片式交互设计，视觉轻盈流畅。
-- 🎛️ **强劲硬解与精准微调**：流畅硬解 4K / HDR / 高码率视频，支持音轨切换、外挂字幕选择与双击精准步进快进。
-- 🪶 **极致轻量低功耗**：安装包仅数十兆，内存开销极低，长时间播放不易发热发烫。
+- 📱 **类短视频流上下滑动切片（独家亮点）**：
+  打破传统播放器笨重的列表查找逻辑！上下滑动即可丝滑切换视频，单手单指即可完成切集、调音量、调亮度，是床上刷剧、看短视频集、刷手机 Vlog 的终极神器。
+- ⚡ **原生 SMB 局域网极速直连**：
+  原生支持 SMB / WebDAV / AList 协议，内置局域网 445 端口自动扫描探测，秒级连接你的 Windows 共享、群晖、威联通、极空间 NAS。
+- 🎬 **短剧长片通吃，横竖自由**：
+  既支持竖屏沉浸式单手刷短视频与生活 Vlog，也支持全屏横屏硬解 4K / HDR / 高码率影视大作，外挂字幕与多音轨一键切换。
+- 🚫 **纯粹零干扰，无任何广告**：
+  0 开屏广告、0 冗余短视频社交、0 后台流氓进程，极速秒开。
+- 🪶 **单架构仅 21MB，超轻功耗**：
+  纯净 arm64 架构精简打包，内存占用极低，长时间观影发热量显著低于同类产品。
 
 ---
 
