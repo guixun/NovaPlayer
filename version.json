@@ -1,8 +1,8 @@
 {
-  "version_code": 2,
-  "version_name": "1.0.1",
+  "version_code": 3,
+  "version_name": "1.0.2",
   "force_update": false,
-  "update_log": "🚀 NovaPlayer v1.0.1 正式更新：\n1. 【新手手势教学】新增图片与视频交互引导动画（双击缩放、水平慢滑调节、长按左侧倒退/右侧快进、垂直上下滑动切片），支持设置中随时重置与全屏预览；\n2. 【手势瞄准优化】深度调优 120Hz 高刷屏慢速跟手滑动与抬手防抖算法，进度拖拽瞄准更精准丝滑；\n3. 【协议雷达扩展】局域网自动发现全面支持 WebDAV 与 AList 服务器，一键扫描自动回填；\n4. 【自动检查更新】应用启动自动后台静默检查新版，升级体验更智能无感；\n5. 【安装权限支持】优化系统安装器调起体验，自动引导开启未知应用安装权限。",
-  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk",
+  "update_log": "🚀 NovaPlayer v1.0.2 体验与排版优化更新：\n1. 【SMB 共享枚举】修复 SMB 连接未指定共享路径报错的问题，全面支持自动列出 NAS 所有共享文件夹；若服务端限制枚举支持友好指引；\n2. 【UI 布局排版防挤压】全面优化大字体及高显示缩放下的文字排版，彻底解决首页顶部切换器与协议选择器文字断折、挤成竖排的问题；\n3. 【连接体验调优】优化 SMB/WebDAV/AList 测试连接与错误状态反馈，提供更直观的配置指引。",
+  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.2/app-release.apk",
   "backup_url": "https://pan.quark.cn/s/476cfe9cad6b"
 }
