@@ -1,8 +1,8 @@
 {
-  "version_code": 1,
-  "version_name": "1.0.0",
+  "version_code": 2,
+  "version_name": "1.0.1",
   "force_update": false,
-  "update_log": "🎉 NovaPlayer 首发版本：\n1. 支持原生 SMB 局域网媒体流播放与文件浏览；\n2. 纯粹 Material 3 界面与暗黑模式适配；\n3. 高性能硬解支持与手势精准调节；\n4. 0 广告、低内存占用。",
-  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.0/app-release.apk",
+  "update_log": "🚀 NovaPlayer v1.0.1 正式更新：\n1. 【新手手势教学】新增图片与视频交互引导动画（双击缩放、水平慢滑调节、长按左侧倒退/右侧快进、垂直上下滑动切片），支持设置中随时重置与全屏预览；\n2. 【手势瞄准优化】深度调优 120Hz 高刷屏慢速跟手滑动与抬手防抖算法，进度拖拽瞄准更精准丝滑；\n3. 【协议雷达扩展】局域网自动发现全面支持 WebDAV 与 AList 服务器，一键扫描自动回填；\n4. 【检查更新加速】版本更新检测服务全面接入全球 CDN 多源智能容灾，国内网络秒级响应。",
+  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk",
   "backup_url": "https://4006535509.share.123pan.cn/123pan/X5TEwh-XSk1v"
 }
