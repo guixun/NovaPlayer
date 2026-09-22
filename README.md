@@ -5,13 +5,19 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/guixun/NovaPlayer/releases/latest">
-    <img src="https://img.shields.io/github/v/release/guixun/NovaPlayer?color=orange&label=Release" alt="Release">
+  <a href="https://novaplayer.icu">
+    <img src="https://img.shields.io/badge/Official%20Site-novaplayer.icu-0284c7?style=flat-square&logo=cloudflare&logoColor=white" alt="Website">
   </a>
-  <img src="https://img.shields.io/badge/Platform-Android-green.svg" alt="Platform">
-  <img src="https://img.shields.io/badge/UX-Single--Hand%20Swipe-purple.svg" alt="UX">
-  <img src="https://img.shields.io/badge/License-Proprietary-blue.svg" alt="License">
-  <img src="https://img.shields.io/badge/AdFree-100%25-red.svg" alt="AdFree">
+  <a href="https://github.com/guixun/NovaPlayer/releases/latest">
+    <img src="https://img.shields.io/github/v/release/guixun/NovaPlayer?color=orange&label=Release&style=flat-square" alt="Release">
+  </a>
+  <img src="https://img.shields.io/badge/Platform-Android-green.svg?style=flat-square" alt="Platform">
+  <img src="https://img.shields.io/badge/Size-21.5MB-blue.svg?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/AdFree-100%25-red.svg?style=flat-square" alt="AdFree">
+</p>
+
+<p align="center">
+  🌐 <strong>官方专属网站</strong>：<a href="https://novaplayer.icu">https://novaplayer.icu</a>（支持真机画廊体验与手机扫码秒级下载）
 </p>
 
 ---
@@ -46,9 +52,10 @@
 
 | 下载渠道 | 下载方式 | 适用说明 |
 | :--- | :--- | :--- |
-| **国内高速镜像 (推荐)** | [👉 点击一键高速下载 APK](https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk) | 国内直连不限速，免翻免登录 |
+| **官方品牌网站 (推荐)** | [👉 访问官网 novaplayer.icu](https://novaplayer.icu) | 沉浸式真机画廊，手机扫码秒下 |
+| **国内高速镜像直链** | [👉 点击一键高速下载 APK](https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk) | 国内直连不限速，免翻免登录 (21.5MB) |
+| **夸克网盘 (备用推荐)** | [👉 前往夸克网盘备用下载](https://pan.quark.cn/s/476cfe9cad6b) | 官方网盘文件夹高速下载通道 |
 | **GitHub 官方 Releases** | [👉 前往 GitHub Releases 页面](https://github.com/guixun/NovaPlayer/releases/latest) | 全球节点直接分发 |
-| **夸克网盘 (备用推荐)** | [👉 前往夸克网盘备用下载](https://pan.quark.cn/s/476cfe9cad6b) | 官方网盘高速下载通道 |
 
 > ⚠️ **关于安卓手机“报毒 / 未知来源”拦截说明**：
 > NovaPlayer 为个人独立开发应用，目前尚未上架各大品牌应用市场。部分国产手机（华为、小米、OPPO、vivo 等）在安装时若弹出“未经安全检测 / 未知来源应用”等提示，属于系统的常规防御机制。请选择**“继续安装 / 已知晓风险”**即可，本应用保证无任何后门与侵权行为。
