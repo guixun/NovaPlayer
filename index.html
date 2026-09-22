@@ -987,7 +987,7 @@
       });
     });
 
-    // 动态同步最新版本信息 (无需每次手动修改 HTML，由 version.json 动态驱动)
+    // 动态同步最新版本文字信息 (无需每次手动修改 HTML，由 version.json 动态驱动)
     fetch('./version.json')
       .then(res => res.json())
       .then(info => {
@@ -996,15 +996,6 @@
         document.querySelectorAll('.app-version-badge').forEach(el => el.textContent = vTag);
         document.querySelectorAll('.app-version-badge-plain').forEach(el => el.textContent = vTag);
         document.querySelectorAll('.app-version-str').forEach(el => el.textContent = vTag + ' 正式版');
-        if (info.download_url) {
-          directDownloadUrl = info.download_url;
-          const heroBtn = document.getElementById('heroDownloadBtn');
-          if (heroBtn) heroBtn.href = info.download_url;
-          if (qrcodeInstance) {
-            qrcodeInstance.clear();
-            qrcodeInstance.makeCode(info.download_url);
-          }
-        }
       })
       .catch(() => {});
   </script>
