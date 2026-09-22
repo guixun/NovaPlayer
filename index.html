@@ -576,10 +576,10 @@
         <p class="mt-3 text-3xl font-extrabold text-white">版本迭代日志</p>
       </div>
 
-      <!-- Timeline Card: v1.0.1 -->
+      <!-- Timeline Card: v1.0.2 -->
       <div class="relative pl-8 sm:pl-10 border-l border-sky-500/30 space-y-12">
         
-        <!-- v1.0.1 Item -->
+        <!-- v1.0.2 Item (Current Latest) -->
         <div class="relative">
           <!-- Dot -->
           <div class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-sky-400 flex items-center justify-center">
@@ -589,8 +589,37 @@
           <div class="glass-card rounded-2xl p-6 sm:p-8">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
               <div class="flex items-center gap-3">
-                <span class="text-xl font-bold text-white">v1.0.1 正式版</span>
+                <span class="text-xl font-bold text-white">v1.0.2 优化更新</span>
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">当前最新</span>
+              </div>
+              <span class="text-xs text-slate-400">2026 年 9 月</span>
+            </div>
+
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">1.</span>
+                <span><strong>【SMB 共享免配置自动枚举】</strong>支持 SMB 共享文件夹自动探测能力。配置 SMB 时共享路径留空即可自动枚举列出 NAS 所有共享文件夹，体验看齐 Windows 网上邻居；同时智能净化路径前缀，输入 <code>/Cloud</code> 或 <code>Cloud</code> 均可无缝访问；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">2.</span>
+                <span><strong>【大字号文字排版防挤压】</strong>针对大字体与高系统缩放场景进行了全量适配。首页顶部来源切换器与服务器协议选择器全面增加自适应等比缩放与单行硬约束，彻底解决部分高分辨率真机大字号下文字断折、换行挤成竖排的问题；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">3.</span>
+                <span><strong>【体验与配置指引调优】</strong>服务器配置中的“共享路径名称”明确标注为选填，调优 SMB / WebDAV / AList 实时连接诊断反馈与错误引导。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- v1.0.1 Item -->
+        <div class="relative opacity-80">
+          <div class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-slate-600"></div>
+
+          <div class="glass-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xl font-bold text-white">v1.0.1 正式版</span>
               </div>
               <span class="text-xs text-slate-400">2026 年 9 月</span>
             </div>
