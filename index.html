@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaPlayer - 专为局域网而生的下一代轻量流媒体播放器</title>
+  <meta name="description" content="NovaPlayer 是一款专注于局域网串流与极致跟手体验的开源安卓播放器。支持 SMB、WebDAV、AList 协议雷达自动发现，120Hz 高刷手势操控，0 广告，轻巧仅 21.5MB。">
+  <meta name="keywords" content="NovaPlayer, 安卓播放器, SMB播放器, WebDAV, AList, 局域网播放器, 开源播放器, 120Hz播放器">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="NovaPlayer - 专为局域网而生的下一代轻量流媒体播放器">
+  <meta property="og:description" content="原生 SMB / WebDAV / AList 协议雷达，120Hz 丝滑跟手手势，0 广告，身材仅 21.5MB。">
+  <meta property="og:image" content="assets/screenshots/hero_player.jpg">
+  <meta property="og:url" content="https://novaplayer.icu">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans SC"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              400: '#38bdf8',
+              500: '#0284c7',
+              600: '#0369a1',
+              accent: '#f59e0b',
+            },
+            surface: {
+              DEFAULT: '#0b0f17',
+              card: '#121824',
+              border: 'rgba(255, 255, 255, 0.08)',
+              glass: 'rgba(18, 24, 36, 0.72)',
+            }
+          },
+          animation: {
+            'blob': 'blob 8s infinite ease-in-out',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 3s infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -40px) scale(1.08)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.95)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4' },
+              '50%': { opacity: '0.8' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    body {
+      background-color: #080c14;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      selection-background-color: #0284c7;
+      selection-color: #ffffff;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px -15px rgba(2, 132, 199, 0.25);
+    }
+    .glow-gradient {
+      background: radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.18) 0%, rgba(245, 158, 11, 0.08) 50%, transparent 80%);
+    }
+    .device-shadow {
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.15);
+    }
+    /* Hide scrollbar for gallery tabs */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+  <!-- Ambient Light Mesh Background -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-sky-500/15 rounded-full blur-[130px] animate-blob"></div>
+    <div class="absolute top-96 -left-32 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] animate-blob" style="animation-delay: 2s;"></div>
+    <div class="absolute top-[1200px] -right-32 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] animate-blob" style="animation-delay: 4s;"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+  </div>
+
+  <!-- Top Announcement Bar -->
+  <div class="relative z-50 bg-gradient-to-r from-sky-950/80 via-indigo-950/80 to-amber-950/80 border-b border-white/5 py-2 px-4 text-center text-xs sm:text-sm text-slate-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span> 最新发布
+      </span>
+      <span>NovaPlayer <strong>v1.0.1 正式版</strong> 现已发布：新增新手手势教学、协议雷达扩展与自动更新！</span>
+      <a href="#changelog" class="hidden sm:inline-flex items-center text-sky-400 hover:text-sky-300 font-medium ml-1 underline decoration-sky-400/40 underline-offset-4">查看日志 &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-sky-500 to-amber-400 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+          <img src="assets/logo.png" alt="NovaPlayer Logo" class="w-full h-full object-cover rounded-[10px]">
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-sky-400 transition-colors">NovaPlayer</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-white/10 text-sky-300 border border-white/15">v1.0.1</span>
+          </div>
+          <span class="text-[10px] text-slate-400 tracking-wider">专为局域网而生的流媒体播放器</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#features" class="hover:text-white transition-colors">核心卖点</a>
+        <a href="#showcase" class="hover:text-white transition-colors">实机画廊</a>
+        <a href="#tech" class="hover:text-white transition-colors">极客架构</a>
+        <a href="#changelog" class="hover:text-white transition-colors">更新日志</a>
+        <a href="#faq" class="hover:text-white transition-colors">常见疑问</a>
+      </nav>
+
+      <!-- Desktop Action CTA -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="https://github.com/guixun/NovaPlayer" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>GitHub</span>
+          <span class="px-1.5 py-0.5 rounded text-[10px] bg-white/10 text-slate-200">Star</span>
+        </a>
+
+        <a href="#download" 
+           class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 shadow-md shadow-sky-500/25 hover:shadow-sky-500/40 hover:-translate-y-0.5 transition-all">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>立即下载</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" class="sm:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5" aria-label="打开菜单">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileMenu" class="hidden sm:hidden border-t border-white/10 bg-surface-card/95 backdrop-blur-xl px-4 py-6 space-y-4">
+      <a href="#features" class="block text-slate-300 hover:text-white py-2 font-medium">核心卖点</a>
+      <a href="#showcase" class="block text-slate-300 hover:text-white py-2 font-medium">实机画廊</a>
+      <a href="#tech" class="block text-slate-300 hover:text-white py-2 font-medium">极客架构</a>
+      <a href="#changelog" class="block text-slate-300 hover:text-white py-2 font-medium">更新日志</a>
+      <a href="#faq" class="block text-slate-300 hover:text-white py-2 font-medium">常见疑问</a>
+      <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
+        <a href="https://github.com/guixun/NovaPlayer" target="_blank" class="w-full text-center py-2.5 rounded-xl text-sm font-semibold bg-white/5 border border-white/10 text-slate-200 flex items-center justify-center gap-2">
+          <i data-lucide="github" class="w-4 h-4"></i> GitHub 源码仓库
+        </a>
+        <a href="#download" class="w-full text-center py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-sky-500 to-blue-600 text-white flex items-center justify-center gap-2">
+          <i data-lucide="download" class="w-4 h-4"></i> 立即免费下载 APK
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="relative z-10 pt-12 sm:pt-20 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <!-- Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/10 hover:border-sky-500/40 text-slate-300 shadow-inner mb-6 animate-float">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span>开源极客 · 零广告 · 极致跟手</span>
+        <span class="text-white/20">|</span>
+        <span class="text-sky-400">安装包仅 21.5MB</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-none">
+        私有云高清影视，<br class="hidden sm:inline">
+        <span class="bg-gradient-to-r from-sky-400 via-indigo-300 to-amber-300 bg-clip-text text-transparent">
+          指尖沉浸视界
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-6 text-base sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        原生 SMB / WebDAV / AList 协议雷达秒级嗅探，专为 120Hz 高刷屏打造的跟手手势，极简纯净，还原创作者最初的震撼与感动。
+      </p>
+
+      <!-- Download Action Buttons (Hero CTA) -->
+      <div id="download" class="mt-10 flex flex-wrap items-center justify-center gap-4 max-w-3xl mx-auto">
+        
+        <!-- Primary Fast Mirror Download -->
+        <a href="https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk" 
+           class="group relative inline-flex items-center justify-center gap-3 px-7 py-4 rounded-2xl text-base font-bold text-white bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-xl shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <i data-lucide="download-cloud" class="w-5 h-5 text-sky-200 group-hover:animate-bounce"></i>
+          <div class="text-left">
+            <div class="text-xs text-sky-200 font-normal">国内高速直链 (推荐)</div>
+            <div class="leading-none mt-0.5">下载 APK 安装包 (21.5MB)</div>
+          </div>
+        </a>
+
+        <!-- Backup Quark Drive -->
+        <a href="https://pan.quark.cn/s/476cfe9cad6b" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-2xl text-sm font-semibold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-amber-400/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <i data-lucide="folder-archive" class="w-5 h-5 text-amber-400"></i>
+          <div class="text-left">
+            <div class="text-xs text-slate-400">官方网盘备用通道</div>
+            <div class="leading-none mt-0.5 font-bold">夸克网盘文件夹</div>
+          </div>
+        </a>
+
+        <!-- GitHub Releases -->
+        <a href="https://github.com/guixun/NovaPlayer/releases/latest" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center justify-center gap-2.5 px-5 py-4 rounded-2xl text-sm font-semibold text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <i data-lucide="github" class="w-5 h-5"></i>
+          <span>Releases</span>
+        </a>
+
+        <!-- QR Code Trigger -->
+        <button id="showQrBtn" 
+                class="inline-flex items-center justify-center gap-2 px-4 py-4 rounded-2xl text-sm font-semibold text-sky-400 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 hover:border-sky-500/40 transition-all"
+                title="手机扫码直接下载">
+          <i data-lucide="qr-code" class="w-5 h-5"></i>
+          <span class="hidden sm:inline">手机扫码下载</span>
+        </button>
+      </div>
+
+      <!-- Trust Meta Badges -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500">
+        <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> 100% 开源无后门</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="ban" class="w-4 h-4 text-sky-400"></i> 0 开屏广告 · 0 追踪器</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i> 极低内存常驻 (&lt;50MB)</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i> 支持 Android 8.0+</span>
+      </div>
+
+      <!-- Hero C-Position Flagship Device Mockup -->
+      <div class="mt-16 sm:mt-20 relative max-w-5xl mx-auto">
+        
+        <!-- Glowing aura behind device -->
+        <div class="absolute -inset-4 bg-gradient-to-r from-sky-500/20 via-indigo-500/20 to-amber-500/20 rounded-[3rem] blur-2xl opacity-70"></div>
+        
+        <!-- Landscape Device Shell (Tablet/Phone Form Factor) -->
+        <div class="relative rounded-2xl sm:rounded-[2.5rem] p-2 sm:p-3 bg-gradient-to-b from-slate-700/80 via-slate-900/90 to-black border border-white/20 device-shadow overflow-hidden">
+          
+          <!-- Inner screen frame -->
+          <div class="relative rounded-xl sm:rounded-[2rem] overflow-hidden bg-black aspect-[16/9] sm:aspect-[20/9] flex items-center justify-center group">
+            <img src="assets/screenshots/hero_player.webp" 
+                 alt="NovaPlayer 4K 播放实机界面" 
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]">
+            
+            <!-- Overlay Sheen Reflection Effect -->
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-60"></div>
+          </div>
+
+          <!-- Bottom Reflective Glow -->
+          <div class="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-sky-500/10 to-transparent pointer-events-none"></div>
+        </div>
+
+        <!-- Floating Badge Left: 4K HDR Hard Decode -->
+        <div class="hidden md:flex absolute -left-8 top-1/4 glass-panel rounded-2xl p-4 items-center gap-3 shadow-2xl border-white/10 animate-float" style="animation-delay: 1s;">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-300">
+            <i data-lucide="clapperboard" class="w-5 h-5"></i>
+          </div>
+          <div class="text-left">
+            <div class="text-xs font-bold text-white">4K UHD & HDR10</div>
+            <div class="text-[10px] text-slate-400">底层硬解 · 满帧不发热</div>
+          </div>
+        </div>
+
+        <!-- Floating Badge Right: Smart Resume Progress -->
+        <div class="hidden md:flex absolute -right-8 bottom-1/4 glass-panel rounded-2xl p-4 items-center gap-3 shadow-2xl border-white/10 animate-float" style="animation-delay: 3s;">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-300">
+            <i data-lucide="history" class="w-5 h-5"></i>
+          </div>
+          <div class="text-left">
+            <div class="text-xs font-bold text-white">智能断点续播</div>
+            <div class="text-[10px] text-slate-400">自动记录进度 · 毫秒级复位</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Core Features Section -->
+  <section id="features" class="relative z-10 py-24 border-t border-white/5 bg-slate-950/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400">Why NovaPlayer</h2>
+        <p class="mt-3 text-3xl sm:text-4xl font-extrabold text-white">不妥协的四大硬核设计</p>
+        <p class="mt-4 text-base text-slate-400">
+          摆脱臃肿与卡顿，每一行代码都为影视发烧友与家庭 NAS 用户深度打磨。
+        </p>
+      </div>
+
+      <!-- Feature 4-Card Grid -->
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Card 1: Protocol Radar -->
+        <div class="glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6">
+              <i data-lucide="radio" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">局域网协议雷达</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              原生支持 SMB 2/3、WebDAV 与 AList。内置网络广播嗅探引擎，一键扫描自动发现家庭 NAS 与局域网主机，免去繁琐输入。
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs font-medium text-sky-400">
+            <span>SMB · WebDAV · AList</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 2: 120Hz Gesture -->
+        <div class="glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6">
+              <i data-lucide="hand" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">120Hz 跟手手势体系</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              独创“长按左退、长按右进”双倍速操控。搭配非线性慢速跟手算法与抬手防抖滤镜，进度微调瞄准更精准，高刷屏极其丝滑。
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs font-medium text-amber-400">
+            <span>长按快进/倒退 · 抬手防抖</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 3: Cinema Hard-decode -->
+        <div class="glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
+              <i data-lucide="film" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">影院级全能解码</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              直接调用系统芯片级硬件解码，4K、8K、HDR10、10bit HEVC 轻松直出。支持外挂 SRT/VTT 字幕二分检索与多音轨切换。
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs font-medium text-indigo-400">
+            <span>4K HDR · 多音轨 · 外挂字幕</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 4: Pure & Lightweight -->
+        <div class="glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
+              <i data-lucide="feather" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">纯净克制 · 仅 21.5MB</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              0 开屏推流广告、0 社交绑定、0 强制权限。深度架构精简与图标摇树优化，身材仅 21.5MB，冷启动速度毫秒级瞬开。
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs font-medium text-emerald-400">
+            <span>0 广告 · 内存常驻 &lt;50MB</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Device Showcase (实机画廊) -->
+  <section id="showcase" class="relative z-10 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400">In Real Device</h2>
+        <p class="mt-3 text-3xl sm:text-4xl font-extrabold text-white">真机沉浸体验画廊</p>
+        <p class="mt-4 text-base text-slate-400">
+          基于 Redmi K70 Pro 旗舰真机实拍与交互捕获，见证每个像素的克制与用心。
+        </p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="mt-10 flex items-center justify-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-2">
+        <button onclick="switchTab(0)" id="tabBtn-0" class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sky-500 text-white shadow-lg shadow-sky-500/25">
+          🎬 4K 影院播放
+        </button>
+        <button onclick="switchTab(1)" id="tabBtn-1" class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white/5 hover:bg-white/10 text-slate-300">
+          📁 极简媒体库
+        </button>
+        <button onclick="switchTab(2)" id="tabBtn-2" class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white/5 hover:bg-white/10 text-slate-300">
+          📡 协议雷达嗅探
+        </button>
+        <button onclick="switchTab(3)" id="tabBtn-3" class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white/5 hover:bg-white/10 text-slate-300">
+          👆 创新手势教学
+        </button>
+      </div>
+
+      <!-- Showcase Stage Container -->
+      <div class="mt-12 glass-panel rounded-3xl p-6 sm:p-12 border-white/10 relative overflow-hidden">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left: Narrative Details -->
+          <div class="lg:col-span-5 text-left space-y-6">
+            <div id="showcasePill" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+              4K 超清横屏播放
+            </div>
+            <h3 id="showcaseTitle" class="text-2xl sm:text-3xl font-extrabold text-white leading-snug">
+              无界沉浸，专为光影大片雕琢
+            </h3>
+            <p id="showcaseDesc" class="text-sm sm:text-base text-slate-400 leading-relaxed">
+              打开即播，自动智能定位上一次的播放进度。简洁优雅的半透明控制台，触控任意区域随手调节，把整个屏幕完完全全留给电影本身。
+            </p>
+
+            <ul id="showcaseBullets" class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-center gap-3">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400 shrink-0"></i>
+                <span>智能进度浮动气泡，秒级定位上次观看进度</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400 shrink-0"></i>
+                <span>倍速从 0.5x 至 3.0x 多档自由切换</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400 shrink-0"></i>
+                <span>支持外挂 SRT、VTT、ASS 字幕与时间轴偏移同步</span>
+              </li>
+            </ul>
+
+            <div class="pt-4">
+              <a href="#download" class="inline-flex items-center gap-2 text-sm font-bold text-sky-400 hover:text-sky-300">
+                <span>立即下载体验真机交互</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Visual Mockup Container -->
+          <div class="lg:col-span-7 flex items-center justify-center">
+            
+            <!-- Dynamic Frame (Adaptive to Landscape or Portrait) -->
+            <div id="mockupFrame" class="relative rounded-2xl sm:rounded-3xl p-2 bg-gradient-to-b from-slate-700 via-slate-900 to-black border border-white/20 shadow-2xl transition-all duration-500 w-full max-w-lg">
+              
+              <div id="mockupInner" class="relative rounded-xl sm:rounded-2xl overflow-hidden bg-black flex items-center justify-center">
+                <img id="showcaseImg" src="assets/screenshots/hero_player.webp" 
+                     alt="NovaPlayer 真机截图" 
+                     class="w-full h-full object-cover transition-opacity duration-300">
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Architecture & Comparison (架构与极客对比) -->
+  <section id="tech" class="relative z-10 py-24 border-t border-white/5 bg-slate-950/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Architecture & Specs</h2>
+        <p class="mt-3 text-3xl sm:text-4xl font-extrabold text-white">为什么 NovaPlayer 如此轻快？</p>
+        <p class="mt-4 text-base text-slate-400">
+          我们拒绝臃肿的第三方广告 SDK 和冗余框架，采用 C 级直通流代理与 Flutter 现代化渲染管线。
+        </p>
+      </div>
+
+      <!-- Comparison Matrix Table -->
+      <div class="mt-16 glass-panel rounded-3xl overflow-hidden border-white/10 shadow-2xl max-w-4xl mx-auto">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-white/10 bg-white/[0.02]">
+                <th class="py-5 px-6 font-bold text-slate-300">对比维度</th>
+                <th class="py-5 px-6 font-bold text-sky-400 flex items-center gap-1.5">
+                  <i data-lucide="zap" class="w-4 h-4"></i> NovaPlayer (v1.0.1)
+                </th>
+                <th class="py-5 px-6 font-medium text-slate-500">市面传统主流播放器</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-slate-300">
+              <tr>
+                <td class="py-4 px-6 font-medium text-white">广告与推广弹窗</td>
+                <td class="py-4 px-6 text-emerald-400 font-bold flex items-center gap-1.5">
+                  <i data-lucide="check" class="w-4 h-4"></i> 真正 0 广告 · 无开屏推流
+                </td>
+                <td class="py-4 px-6 text-slate-500">开屏广告、横幅信息流、短视频推流</td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 font-medium text-white">安装包体积</td>
+                <td class="py-4 px-6 text-emerald-400 font-bold">仅 21.5 MB (ARM64 纯净单架构)</td>
+                <td class="py-4 px-6 text-slate-500">80MB ~ 150MB+ (混入大量电商套件)</td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 font-medium text-white">局域网串流能力</td>
+                <td class="py-4 px-6 text-emerald-400 font-bold">原生 SMB / WebDAV / AList 自动嗅探</td>
+                <td class="py-4 px-6 text-slate-500">需付费解锁、繁琐手动配置或协议缺失</td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 font-medium text-white">120Hz 高刷跟手交互</td>
+                <td class="py-4 px-6 text-emerald-400 font-bold">非线性慢速跟手 + 独创双向倍速长按</td>
+                <td class="py-4 px-6 text-slate-500">线性滑动生硬、丢帧明显、误碰跳进度</td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 font-medium text-white">系统后台常驻内存</td>
+                <td class="py-4 px-6 text-emerald-400 font-bold">极低 (&lt; 50MB)，退出即释放</td>
+                <td class="py-4 px-6 text-slate-500">200MB+，各种守护进程保活占用资源</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Changelog Section -->
+  <section id="changelog" class="relative z-10 py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400">Release Notes</h2>
+        <p class="mt-3 text-3xl font-extrabold text-white">版本迭代日志</p>
+      </div>
+
+      <!-- Timeline Card: v1.0.1 -->
+      <div class="relative pl-8 sm:pl-10 border-l border-sky-500/30 space-y-12">
+        
+        <!-- v1.0.1 Item -->
+        <div class="relative">
+          <!-- Dot -->
+          <div class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-sky-400 flex items-center justify-center">
+            <div class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xl font-bold text-white">v1.0.1 正式版</span>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">当前最新</span>
+              </div>
+              <span class="text-xs text-slate-400">2026 年 9 月</span>
+            </div>
+
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">1.</span>
+                <span><strong>【新手手势教学】</strong>新增图片与视频交互引导动画（双击缩放、水平慢滑调节、长按左侧倒退/右侧快进、垂直上下滑动切片），支持设置中随时重置与全屏预览；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">2.</span>
+                <span><strong>【手势瞄准优化】</strong>深度调优 120Hz 高刷屏慢速跟手滑动与抬手防抖算法，进度拖拽瞄准更精准丝滑；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">3.</span>
+                <span><strong>【协议雷达扩展】</strong>局域网自动发现全面支持 WebDAV 与 AList 服务器，一键扫描自动回填；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">4.</span>
+                <span><strong>【自动检查更新】</strong>应用启动自动后台静默检查新版，升级体验更智能无感；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">5.</span>
+                <span><strong>【安装权限支持】</strong>优化系统安装器调起体验，自动引导开启未知应用安装权限。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- v1.0.0 Item -->
+        <div class="relative opacity-70">
+          <div class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-slate-600"></div>
+
+          <div class="glass-card rounded-2xl p-6 sm:p-8">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xl font-bold text-white">v1.0.0 首发版本</span>
+              <span class="text-xs text-slate-500">2026 年 9 月</span>
+            </div>
+            <p class="text-sm text-slate-400">
+              首次正式公开发布：支持原生 SMB 局域网媒体流播放与文件浏览；纯粹 Material 3 界面与暗黑模式适配；高性能硬解支持与手势调节；0 广告、低内存占用。
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section (常见疑问) -->
+  <section id="faq" class="relative z-10 py-24 border-t border-white/5 bg-slate-950/40">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-amber-400">Questions & Answers</h2>
+        <p class="mt-3 text-3xl font-extrabold text-white">常见问题解答</p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <details class="glass-card rounded-2xl p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-white text-base">
+            <span>支持哪些局域网与云存储设备？</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="mt-4 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+            完美支持所有主流家庭 NAS 设备（群晖 Synology、威联通 QNAP、绿联、极空间等）、Windows 电脑本地共享文件夹、Linux Samba 服务器，以及任何标准 WebDAV 服务器和 AList 挂载源（可无缝接入百度网盘、阿里云盘、115 网盘、夸克网盘等）。
+          </p>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="glass-card rounded-2xl p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-white text-base">
+            <span>安装 APK 时手机提示“报毒 / 未知来源”怎么办？</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="mt-4 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+            NovaPlayer 为个人独立开源作品，源码完全开放透明，绝无任何恶意后门与侵权行为。部分国产手机（华为、小米、OPPO、vivo 等）会对未上架其官方商城的 APK 弹出常规安全拦截提示，在安装时勾选<strong>“已知晓风险，继续安装”</strong>即可放心使用。
+          </p>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="glass-card rounded-2xl p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-white text-base">
+            <span>会推出 iOS 或 Android TV 电视版吗？</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="mt-4 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+            NovaPlayer 基于 Flutter 跨平台架构开发，核心媒体引擎具备极佳的可移植性。目前我们正全力完善安卓移动端与平板体验，TV 遥控器大屏交互与更多平台版本已在未来规划日程中，欢迎关注我们的 GitHub 仓库动态！
+          </p>
+        </details>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Community & Sponsor Section (社区与支持) -->
+  <section class="relative z-10 py-20 border-t border-white/5">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <div class="glass-card rounded-3xl p-8 sm:p-14 relative overflow-hidden">
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute -left-20 -top-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl"></div>
+
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white">加入官方玩家交流群</h3>
+        <p class="mt-3 text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+          与作者及其他影视发烧友交流播放心得、反馈 Bug 与提交功能建议，第一时间获取最新内测版本。
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a href="https://qm.qq.com/cgi-bin/qm/qr?k=123456&jump_from=webapi" target="_blank"
+             class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl text-sm font-bold text-white bg-sky-600 hover:bg-sky-500 shadow-lg shadow-sky-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+            <span>一键加入 QQ 交流群 (818733351)</span>
+          </a>
+
+          <button id="copyQqBtn" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-medium text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span id="copyQqText">复制群号</span>
+          </button>
+
+          <button id="showSponsorBtn" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-medium text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition-all">
+            <i data-lucide="coffee" class="w-4 h-4"></i>
+            <span>请作者喝杯咖啡 ☕</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-white/10 py-12 bg-black/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <!-- Brand & Copyright -->
+      <div class="flex items-center gap-3">
+        <img src="assets/logo.png" alt="NovaPlayer" class="w-7 h-7 rounded-lg">
+        <span class="text-sm font-bold text-white">NovaPlayer</span>
+        <span class="text-xs text-slate-500">&copy; 2026. 纯净开源，遵循 GPL-3.0 协议.</span>
+      </div>
+
+      <!-- Domain & Links -->
+      <div class="flex items-center gap-6 text-xs text-slate-400">
+        <a href="https://github.com/guixun/NovaPlayer" target="_blank" class="hover:text-white transition-colors">GitHub 仓库</a>
+        <a href="https://github.com/guixun/NovaPlayer/releases" target="_blank" class="hover:text-white transition-colors">历史发布</a>
+        <a href="https://pan.quark.cn/s/476cfe9cad6b" target="_blank" class="hover:text-white transition-colors">夸克网盘</a>
+        <span class="text-slate-600">|</span>
+        <span class="text-sky-400/80 font-mono">novaplayer.icu</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Modal 1: QR Code Modal -->
+  <div id="qrModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+    <div class="glass-panel rounded-3xl p-7 max-w-sm w-full border-white/20 text-center relative shadow-2xl animate-float">
+      <button id="closeQrBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="smartphone" class="w-5 h-5"></i>
+      </div>
+      <h3 class="text-lg font-bold text-white">手机扫码直接下载</h3>
+      <p class="text-xs text-slate-400 mt-1 mb-5">使用手机系统相机或微信扫一扫即可下载安装包</p>
+
+      <!-- QR Container -->
+      <div class="p-4 bg-white rounded-2xl inline-block shadow-lg mx-auto">
+        <div id="qrcode"></div>
+      </div>
+
+      <div class="mt-4 text-[11px] text-slate-400">
+        版本：NovaPlayer v1.0.1 (21.5MB)
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Sponsor Modal -->
+  <div id="sponsorModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+    <div class="glass-panel rounded-3xl p-7 max-w-sm w-full border-white/20 text-center relative shadow-2xl">
+      <button id="closeSponsorBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="heart" class="w-5 h-5"></i>
+      </div>
+      <h3 class="text-lg font-bold text-white">赞助与支持 NovaPlayer</h3>
+      <p class="text-xs text-slate-400 mt-1 mb-4">您的鼓励是推动 NovaPlayer 持续迭代的最大动力！</p>
+
+      <div class="p-2 bg-white rounded-2xl inline-block shadow-lg mx-auto max-w-[220px]">
+        <img src="assets/wechat_sponsor.png" alt="微信赞助支持" class="w-full h-auto rounded-xl">
+      </div>
+
+      <p class="mt-3 text-xs text-amber-300/90 font-medium">微信扫码支持独立开发者</p>
+    </div>
+  </div>
+
+  <!-- JavaScript Interactions -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Data for interactive showcase tabs
+    const showcaseData = [
+      {
+        pill: '4K 超清横屏播放',
+        title: '无界沉浸，专为光影大片雕琢',
+        desc: '打开即播，自动智能定位上一次的播放进度。简洁优雅的半透明控制台，触控任意区域随手调节，把整个屏幕完完全全留给电影本身。',
+        img: 'assets/screenshots/hero_player.webp',
+        bullets: [
+          '智能进度浮动气泡，秒级复位上次观看时刻',
+          '倍速从 0.5x 至 3.0x 自由无级调节',
+          '支持外挂 SRT、VTT、ASS 字幕与时间轴偏移微调'
+        ],
+        aspectClass: 'aspect-[16/9] sm:aspect-[20/9]',
+        maxWClass: 'max-w-xl sm:max-w-2xl'
+      },
+      {
+        pill: '极简 Material 3 媒体库',
+        title: '文件管理，井井有条随心阅览',
+        desc: '深色高阶质感设计，直观展示 SMB 远程共享与本地目录。即时目录搜索、一键快速书签与智能媒体收藏，随心分类。',
+        img: 'assets/screenshots/screen_explorer.webp',
+        bullets: [
+          'SMB 共享与本地存储一键快速平滑切换',
+          '支持首字母与关键词毫秒级本地实时过滤',
+          '多级目录面包屑导航，深层文件夹进退自如'
+        ],
+        aspectClass: 'aspect-[9/19]',
+        maxWClass: 'max-w-xs'
+      },
+      {
+        pill: '局域网协议雷达',
+        title: '一键雷达嗅探，免去配置繁琐',
+        desc: '进入编辑服务器，内置的局域网雷达即可自动广播扫描局域网中的电脑、NAS 与 AList 节点，点击发现列表直接自动回填主机与端口。',
+        img: 'assets/screenshots/screen_radar.webp',
+        bullets: [
+          '自动探测局域网开放的 SMB 445 与 WebDAV 5005 端口',
+          '支持独立别名、共享子路径与密码安全加密持久化',
+          '连接前一键测试网络延迟与可用性校验'
+        ],
+        aspectClass: 'aspect-[9/19]',
+        maxWClass: 'max-w-xs'
+      },
+      {
+        pill: '独创新手手势体系',
+        title: '120Hz 跟手操控，人机合一',
+        desc: '首创长按左侧倒退、长按右侧 2.0x 倍速快进，双击两侧微调。首次播放自动展现高帧率交互引导蒙层，新手秒上手。',
+        img: 'assets/screenshots/screen_gesture.webp',
+        bullets: [
+          '长按左退、长按右进，松手瞬间平滑恢复原速',
+          '抬手防抖与非线性加速度慢滑，进度瞄准绝不跳脱',
+          '在设置中心随时可重置引导或全屏沉浸预览'
+        ],
+        aspectClass: 'aspect-[9/19]',
+        maxWClass: 'max-w-xs'
+      }
+    ];
+
+    // Tab Switch Function
+    function switchTab(index) {
+      const data = showcaseData[index];
+      if (!data) return;
+
+      // Update Tab button states
+      document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+        if (idx === index) {
+          btn.className = 'tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sky-500 text-white shadow-lg shadow-sky-500/25';
+        } else {
+          btn.className = 'tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white/5 hover:bg-white/10 text-slate-300';
+        }
+      });
+
+      // Update Text content with subtle fade
+      const pill = document.getElementById('showcasePill');
+      const title = document.getElementById('showcaseTitle');
+      const desc = document.getElementById('showcaseDesc');
+      const bullets = document.getElementById('showcaseBullets');
+      const img = document.getElementById('showcaseImg');
+      const frame = document.getElementById('mockupFrame');
+      const inner = document.getElementById('mockupInner');
+
+      pill.textContent = data.pill;
+      title.textContent = data.title;
+      desc.textContent = data.desc;
+
+      bullets.innerHTML = data.bullets.map(b => `
+        <li class="flex items-center gap-3">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400 shrink-0"></i>
+          <span>${b}</span>
+        </li>
+      `).join('');
+
+      // Re-trigger Lucide icons for new elements
+      lucide.createIcons();
+
+      // Smooth switch image & aspect ratio
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = data.img;
+        frame.className = `relative rounded-2xl sm:rounded-3xl p-2 bg-gradient-to-b from-slate-700 via-slate-900 to-black border border-white/20 shadow-2xl transition-all duration-500 w-full ${data.maxWClass}`;
+        inner.className = `relative rounded-xl sm:rounded-2xl overflow-hidden bg-black flex items-center justify-center ${data.aspectClass}`;
+        img.style.opacity = '1';
+      }, 200);
+    }
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // QR Code Generation
+    const directDownloadUrl = "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk";
+    let qrcodeInstance = null;
+
+    const qrModal = document.getElementById('qrModal');
+    const showQrBtn = document.getElementById('showQrBtn');
+    const closeQrBtn = document.getElementById('closeQrBtn');
+
+    showQrBtn.addEventListener('click', () => {
+      qrModal.classList.remove('hidden');
+      if (!qrcodeInstance) {
+        qrcodeInstance = new QRCode(document.getElementById("qrcode"), {
+          text: directDownloadUrl,
+          width: 180,
+          height: 180,
+          colorDark: "#0284c7",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    });
+
+    closeQrBtn.addEventListener('click', () => qrModal.classList.add('hidden'));
+    qrModal.addEventListener('click', (e) => {
+      if (e.target === qrModal) qrModal.classList.add('hidden');
+    });
+
+    // Sponsor Modal
+    const sponsorModal = document.getElementById('sponsorModal');
+    const showSponsorBtn = document.getElementById('showSponsorBtn');
+    const closeSponsorBtn = document.getElementById('closeSponsorBtn');
+
+    showSponsorBtn.addEventListener('click', () => sponsorModal.classList.remove('hidden'));
+    closeSponsorBtn.addEventListener('click', () => sponsorModal.classList.add('hidden'));
+    sponsorModal.addEventListener('click', (e) => {
+      if (e.target === sponsorModal) sponsorModal.classList.add('hidden');
+    });
+
+    // Copy QQ Number
+    const copyQqBtn = document.getElementById('copyQqBtn');
+    const copyQqText = document.getElementById('copyQqText');
+    copyQqBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText("818733351").then(() => {
+        copyQqText.textContent = "已复制群号 (818733351)";
+        setTimeout(() => {
+          copyQqText.textContent = "复制群号";
+        }, 2500);
+      });
+    });
+  </script>
+</body>
+</html>
