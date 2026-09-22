@@ -48,12 +48,12 @@
 
 ## 📥 下载安装 / Download
 
-### 最新稳定版：v1.0.1
+### 最新稳定版：v1.0.2
 
 | 下载渠道 | 下载方式 | 适用说明 |
 | :--- | :--- | :--- |
 | **官方品牌网站 (推荐)** | [👉 访问官网 novaplayer.icu](https://novaplayer.icu) | 沉浸式真机画廊，手机扫码秒下 |
-| **国内高速镜像直链** | [👉 点击一键高速下载 APK](https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk) | 国内直连不限速，免翻免登录 (21.5MB) |
+| **国内高速镜像直链** | [👉 点击一键高速下载 APK](https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/latest/download/app-release.apk) | 永久指向最新稳定版，国内直连不限速 (约 21.6MB) |
 | **夸克网盘 (备用推荐)** | [👉 前往夸克网盘备用下载](https://pan.quark.cn/s/476cfe9cad6b) | 官方网盘文件夹高速下载通道 |
 | **GitHub 官方 Releases** | [👉 前往 GitHub Releases 页面](https://github.com/guixun/NovaPlayer/releases/latest) | 全球节点直接分发 |
 

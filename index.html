@@ -135,7 +135,7 @@
       <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30">
         <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span> 最新发布
       </span>
-      <span>NovaPlayer <strong>v1.0.1 正式版</strong> 现已发布：新增新手手势教学、协议雷达扩展与自动更新！</span>
+      <span>NovaPlayer <strong class="app-version-str">v1.0.2 正式版</strong> 现已发布：新增新手手势教学、SMB免配枚举与大字号体验调优！</span>
       <a href="#changelog" class="hidden sm:inline-flex items-center text-sky-400 hover:text-sky-300 font-medium ml-1 underline decoration-sky-400/40 underline-offset-4">查看日志 &rarr;</a>
     </div>
   </div>
@@ -152,7 +152,7 @@
         <div class="flex flex-col">
           <div class="flex items-center gap-2">
             <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-sky-400 transition-colors">NovaPlayer</span>
-            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-white/10 text-sky-300 border border-white/15">v1.0.1</span>
+            <span class="app-version-badge px-2 py-0.5 text-[10px] font-bold rounded-full bg-white/10 text-sky-300 border border-white/15">v1.0.2</span>
           </div>
           <span class="text-[10px] text-slate-400 tracking-wider">专为局域网而生的流媒体播放器</span>
         </div>
@@ -236,12 +236,12 @@
       <div id="download" class="mt-10 flex flex-wrap items-center justify-center gap-4 max-w-3xl mx-auto">
         
         <!-- Primary Fast Mirror Download -->
-        <a href="https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk" 
+        <a id="heroDownloadBtn" href="https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/latest/download/app-release.apk" 
            class="group relative inline-flex items-center justify-center gap-3 px-7 py-4 rounded-2xl text-base font-bold text-white bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-xl shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all">
           <i data-lucide="download-cloud" class="w-5 h-5 text-sky-200 group-hover:animate-bounce"></i>
           <div class="text-left">
             <div class="text-xs text-sky-200 font-normal">国内高速直链 (推荐)</div>
-            <div class="leading-none mt-0.5">下载 APK 安装包 (21.5MB)</div>
+            <div class="leading-none mt-0.5">下载 APK 安装包 (约 21.6MB)</div>
           </div>
         </a>
 
@@ -767,7 +767,7 @@
       </div>
 
       <div class="mt-4 text-[11px] text-slate-400">
-        版本：NovaPlayer v1.0.1 (21.5MB)
+        版本：NovaPlayer <span class="app-version-badge-plain">v1.0.2</span> (约 21.6MB)
       </div>
     </div>
   </div>
@@ -908,8 +908,8 @@
       mobileMenu.classList.toggle('hidden');
     });
 
-    // QR Code Generation
-    const directDownloadUrl = "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.1/app-release.apk";
+    // QR Code Generation (Default to perpetual latest release link)
+    let directDownloadUrl = "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/latest/download/app-release.apk";
     let qrcodeInstance = null;
 
     const qrModal = document.getElementById('qrModal');
@@ -957,6 +957,27 @@
         }, 2500);
       });
     });
+
+    // 动态同步最新版本信息 (无需每次手动修改 HTML，由 version.json 动态驱动)
+    fetch('./version.json')
+      .then(res => res.json())
+      .then(info => {
+        if (!info || !info.version_name) return;
+        const vTag = 'v' + info.version_name;
+        document.querySelectorAll('.app-version-badge').forEach(el => el.textContent = vTag);
+        document.querySelectorAll('.app-version-badge-plain').forEach(el => el.textContent = vTag);
+        document.querySelectorAll('.app-version-str').forEach(el => el.textContent = vTag + ' 正式版');
+        if (info.download_url) {
+          directDownloadUrl = info.download_url;
+          const heroBtn = document.getElementById('heroDownloadBtn');
+          if (heroBtn) heroBtn.href = info.download_url;
+          if (qrcodeInstance) {
+            qrcodeInstance.clear();
+            qrcodeInstance.makeCode(info.download_url);
+          }
+        }
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>
