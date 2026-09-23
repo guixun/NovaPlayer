@@ -1,8 +1,8 @@
 {
-  "version_code": 3,
-  "version_name": "1.0.2",
+  "version_code": 4,
+  "version_name": "1.0.3",
   "force_update": false,
-  "update_log": "🚀 NovaPlayer v1.0.2 体验与排版优化更新：\n1. 【SMB 共享枚举】修复 SMB 连接未指定共享路径报错的问题，全面支持自动列出 NAS 所有共享文件夹；若服务端限制枚举支持友好指引；\n2. 【UI 布局排版防挤压】全面优化大字体及高显示缩放下的文字排版，彻底解决首页顶部切换器与协议选择器文字断折、挤成竖排的问题；\n3. 【连接体验调优】优化 SMB/WebDAV/AList 测试连接与错误状态反馈，提供更直观的配置指引。",
-  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.2/app-release.apk",
+  "update_log": "🚀 NovaPlayer v1.0.3 更新说明：\n1. 【多音轨切换】支持视频内置多音轨自由切换（国语/原声/解说等）；\n2. 【内置字幕】完美支持 MKV 内嵌字幕，彻底解决满屏乱码，秒选秒出；\n3. 【体验优化】解决字幕切换后容易自动变回外挂字幕的问题，操作更省心；\n4. 【告别闪退】修复新系统下列表滑动卡顿与闪退问题，上千视频也能丝滑浏览。",
+  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.3/app-release.apk",
   "backup_url": "https://pan.quark.cn/s/476cfe9cad6b"
 }
