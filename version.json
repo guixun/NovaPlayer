@@ -1,8 +1,8 @@
 {
-  "version_code": 7,
-  "version_name": "1.0.6",
+  "version_code": 8,
+  "version_name": "1.0.7",
   "force_update": false,
-  "update_log": "🚀 NovaPlayer v1.0.6 重磅更新：\n\n【全新功能与特性】\n1. 【全新个性化主题中心与 AMOLED 纯黑】新增主题调色板中心，内置经典琥珀、深邃海洋、生机翡翠、极光幻紫、炽烈樱红、浪漫落樱等 7 种精选调色；专为 OLED/AMOLED 屏幕独家定制“赛博纯黑”关灯级纯黑模式，不仅质感高级更极致省电；\n2. 【本地视频毫秒级超清 Seek 预览】针对真机本地与存储卡视频，引入底层原生极速解码引擎，拖拽进度条即时呈现 480px Retina 超清画面帧预览，松手 80ms 顺滑隐去；手势微调跟手细腻，观影进度尽在掌握；\n3. 【文件浏览左右滑动手势切源】文件浏览器全面支持大拇指左右滑动手势切源，在“远程服务器”与“本机存储”之间滑动顺滑切换，配合精致平滑的过渡卡片动效，单手操作更加自如；\n4. 【MKV 蓝光大片内嵌字幕解析秒级就绪】重构 MKV/EBML 格式解析引擎，采用非阻塞流式跳跃扫描算法，音视频数据包直接极速跳过，即使是几十 GB 的 4K 蓝光 MKV 电影，内嵌字幕也能秒级解析呈现，完美支持 ASS/SSA 复杂特效与样式清洗；\n5. 【双语国际化与界面细节打磨】全面补全搜索栏、媒体过滤选择器等多处双语国际化文案；优化全屏播放手势教学指引与贴边 HUD 交互，操作逻辑更清晰自然。",
-  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.6/app-release.apk",
+  "update_log": "🚀 NovaPlayer v1.0.7 重磅更新：\n\n【全新功能与特性】\n1. 【MPV 全能播放引擎与控制中心】引入 MPV 专业播放内核，全面支持 MKV、AVI、RMVB、WMV、FLV、MP4 等全格式硬件直解；播控底栏与音轨字幕抽屉采用全新半透明毛玻璃设计，视觉通透高级；\n2. 【离线 AI 字幕生成】集成 SenseVoice 语音识别能力，支持手机端无网为无字幕视频生成外挂字幕，生肉影视看剧更省心，支持生成字幕管理与清理；\n3. 【AI 字幕实时双语翻译】新增 AI 字幕双语翻译功能，支持配置翻译模型与目标语言，双语字幕同步滚动对照；局域网远程视频亦支持直接生成字幕；\n4. 【播放倍速全局记忆】调节或长按倍速后全局持久化保存，切换下一集或重开应用自动延续已选倍速；\n5. 【版本更新检测链路优化】升级高可用版本检测通道，应用切回前台时自动检查更新，新版本通知更及时。",
+  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.7/app-release.apk",
   "backup_url": "https://pan.quark.cn/s/476cfe9cad6b"
 }
