@@ -1,8 +1,8 @@
 {
-  "version_code": 8,
-  "version_name": "1.0.7",
+  "version_code": 9,
+  "version_name": "1.0.8",
   "force_update": false,
-  "update_log": "🚀 NovaPlayer v1.0.7 重磅更新：\n\n【全新功能与特性】\n1. 【MPV 全能播放引擎与控制中心】引入 MPV 专业播放内核，全面支持 MKV、AVI、RMVB、WMV、FLV、MP4 等全格式硬件直解；播控底栏与音轨字幕抽屉采用全新半透明毛玻璃设计，视觉通透高级；\n2. 【离线 AI 字幕生成】集成 SenseVoice 语音识别能力，支持手机端无网为无字幕视频生成外挂字幕，生肉影视看剧更省心，支持生成字幕管理与清理；\n3. 【AI 字幕实时双语翻译】新增 AI 字幕双语翻译功能，支持配置翻译模型与目标语言，双语字幕同步滚动对照；局域网远程视频亦支持直接生成字幕；\n4. 【播放倍速全局记忆】调节或长按倍速后全局持久化保存，切换下一集或重开应用自动延续已选倍速；\n5. 【版本更新检测链路优化】升级高可用版本检测通道，应用切回前台时自动检查更新，新版本通知更及时。",
-  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.7/app-release.apk",
+  "update_log": "🚀 NovaPlayer v1.0.8 重磅更新：\n\n【全新功能与特性】\n1. 【MPV 全能播放引擎与控制中心】引入 MPV 专业播放内核，全面支持 MKV、AVI、RMVB、WMV、FLV、MP4 等全格式硬件直解；播控底栏与音轨字幕抽屉采用全新半透明毛玻璃设计，视觉通透高级；\n2. 【横屏全屏上下滑动顺滑切集】全面打通横竖屏切集手势，横屏全屏下屏幕中央任意区域自由上下滑动秒切下一集，两侧 20% 边缘区域精准调节亮度与音量；\n3. 【离线 AI 字幕生成】集成 SenseVoice 语音识别能力，支持手机端无网为无字幕视频生成外挂字幕，生肉影视看剧更省心，支持生成字幕管理与清理；\n4. 【AI 字幕实时双语翻译】新增 AI 字幕双语翻译功能，支持配置翻译模型与目标语言，双语字幕同步滚动对照；局域网远程视频亦支持直接生成字幕；\n5. 【播放倍速全局记忆】调节或长按倍速后全局持久化保存，切换下一集或重开应用自动延续已选倍速。",
+  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.0.8/app-release.apk",
   "backup_url": "https://pan.quark.cn/s/476cfe9cad6b"
 }
