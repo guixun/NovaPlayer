@@ -135,7 +135,7 @@
       <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30">
         <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span> 最新发布
       </span>
-      <span>NovaPlayer <strong class="app-version-str">v1.0.8 正式版</strong> 现已发布：MPV万能内核直解、端侧离线AI字幕生成、实时双语翻译与横屏滑动切集！</span>
+      <span>NovaPlayer <strong class="app-version-str">v1.0.9 正式版</strong> 现已发布：Android/data 免授权直通、文件名自然数字排序与后台 AI 字幕！</span>
       <a href="#changelog" class="hidden sm:inline-flex items-center text-sky-400 hover:text-sky-300 font-medium ml-1 underline decoration-sky-400/40 underline-offset-4">查看日志 &rarr;</a>
     </div>
   </div>
@@ -152,7 +152,7 @@
         <div class="flex flex-col">
           <div class="flex items-center gap-2">
             <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-sky-400 transition-colors">NovaPlayer</span>
-            <span class="app-version-badge px-2 py-0.5 text-[10px] font-bold rounded-full bg-white/10 text-sky-300 border border-white/15">v1.0.8</span>
+            <span class="app-version-badge px-2 py-0.5 text-[10px] font-bold rounded-full bg-white/10 text-sky-300 border border-white/15">v1.0.9</span>
           </div>
           <span class="text-[10px] text-slate-400 tracking-wider">专为局域网而生的流媒体播放器</span>
         </div>
@@ -579,7 +579,7 @@
       <!-- Timeline Cards -->
       <div class="relative pl-8 sm:pl-10 border-l border-sky-500/30 space-y-12">
         
-        <!-- v1.0.7 Item (Current Latest) -->
+        <!-- v1.0.9 Item (Current Latest) -->
         <div class="relative">
           <!-- Dot -->
           <div class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-sky-400 flex items-center justify-center">
@@ -589,8 +589,48 @@
           <div class="glass-card rounded-2xl p-6 sm:p-8">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
               <div class="flex items-center gap-3">
-                <span class="text-xl font-bold text-white">v1.0.8 MPV全能内核、离线AI字幕、实时双语翻译与横屏滑动切集</span>
+                <span class="text-xl font-bold text-white">v1.0.9 Android/data 直通、自然数字排序与后台 AI 字幕</span>
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">当前最新</span>
+              </div>
+              <span class="text-xs text-slate-400">2026 年 10 月</span>
+            </div>
+
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">1.</span>
+                <span><strong>【Android/data 目录免授权直通】</strong>深度对标专业文件管理器体验，无需繁琐的系统弹窗与手动选目录授权，开箱即用直接顺畅浏览并秒播应用私有视频；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">2.</span>
+                <span><strong>【文件名自然数字排序】</strong>全面支持 Windows 同款智能文件名自然数字排序规则（例如第 1、2、10 集依序正确排列，彻底告别 1、10、2 乱序错位），剧集追番列表一目了然；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">3.</span>
+                <span><strong>【视频卡片观看进度与历史精确记录】</strong>文件列表中的视频卡片与缩略图全面支持已看进度指示槽；历史记录页清晰标注“看到 01:23 (35%)”与“已看完”状态，追剧进度一清二楚；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">4.</span>
+                <span><strong>【AI 离线字幕体验革新】</strong>支持后台静默生成与右上角进度胶囊，关闭面板看剧无忧，生成完毕跨生命周期自动无缝挂载上屏；支持系统通知栏常驻进度；智能拦截纯音效底噪假触发，杜绝孤立标点与空时间轴；</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-sky-400 font-bold">5.</span>
+                <span><strong>【全屏防误触锁与播放体验增强】</strong>全屏播放新增屏幕防误触锁定功能，观影更安心；新增播放默认屏幕方向设置（支持智能匹配/锁定横屏/跟随设备）；全面支持从微信、系统文件管理器等第三方应用直接调用 NovaPlayer 播放。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- v1.0.8 Item -->
+        <div class="relative">
+          <!-- Dot -->
+          <div class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-slate-600 flex items-center justify-center">
+            <div class="w-2 h-2 rounded-full bg-slate-500"></div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6 sm:p-8 opacity-80 hover:opacity-100 transition-opacity">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xl font-bold text-white">v1.0.8 MPV全能内核、离线AI字幕、实时双语翻译与横屏滑动切集</span>
               </div>
               <span class="text-xs text-slate-400">2026 年 9 月</span>
             </div>
@@ -615,46 +655,6 @@
               <li class="flex items-start gap-2.5">
                 <span class="text-sky-400 font-bold">5.</span>
                 <span><strong>【播放倍速全局记忆】</strong>调节或长按倍速后全局持久化保存，切换下一集或重开应用自动延续已选倍速。</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- v1.0.6 Item -->
-        <div class="relative">
-          <!-- Dot -->
-          <div class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-slate-600 flex items-center justify-center">
-            <div class="w-2 h-2 rounded-full bg-slate-500"></div>
-          </div>
-
-          <div class="glass-card rounded-2xl p-6 sm:p-8 opacity-80 hover:opacity-100 transition-opacity">
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-              <div class="flex items-center gap-3">
-                <span class="text-xl font-bold text-white">v1.0.6 全新个性化主题中心、本地超清Seek预览与滑动手势升级</span>
-              </div>
-              <span class="text-xs text-slate-400">2026 年 9 月</span>
-            </div>
-
-            <ul class="space-y-2.5 text-sm text-slate-300">
-              <li class="flex items-start gap-2.5">
-                <span class="text-sky-400 font-bold">1.</span>
-                <span><strong>【全新个性化主题中心与 AMOLED 极致省电纯黑】</strong>新增主题调色板中心，内置经典琥珀、深邃海洋、生机翡翠、极光幻紫、炽烈樱红、浪漫落樱等 7 种精选配色；专为 OLED/AMOLED 屏幕独家定制“赛博纯黑”关灯级纯黑模式，不仅质感高级更极致省电；</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-sky-400 font-bold">2.</span>
-                <span><strong>【本地视频毫秒级超清 Seek 预览】</strong>针对真机本地与存储卡视频，引入底层原生极速解码引擎，拖拽进度条即时呈现 480px Retina 超清画面帧预览，松手 80ms 顺滑隐去；手势微调跟手细腻，观影进度尽在掌握；</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-sky-400 font-bold">3.</span>
-                <span><strong>【文件浏览左右滑动手势切源】</strong>文件浏览器全面支持大拇指左右滑动手势切源，在“远程服务器”与“本机存储”之间滑动顺滑切换，配合精致平滑的过渡卡片动效，单手操作更加自如；</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-sky-400 font-bold">4.</span>
-                <span><strong>【MKV 蓝光大片内嵌字幕解析秒级就绪】</strong>重构 MKV/EBML 格式解析引擎，采用非阻塞流式跳跃扫描算法，音视频数据包直接极速跳过，即使是几十 GB 的 4K 蓝光 MKV 电影，内嵌字幕也能秒级解析呈现，完美支持 ASS/SSA 复杂特效与样式清洗；</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-sky-400 font-bold">5.</span>
-                <span><strong>【双语国际化与界面细节打磨】</strong>全面补全搜索栏、媒体过滤选择器等多处双语国际化文案；优化全屏播放手势教学指引与贴边 HUD 交互，操作逻辑更清晰自然。</span>
               </li>
             </ul>
           </div>
@@ -800,7 +800,7 @@
       </div>
 
       <div class="mt-4 text-[11px] text-slate-400">
-        版本：NovaPlayer <span class="app-version-badge-plain">v1.0.8</span> (约 39.5MB)
+        版本：NovaPlayer <span class="app-version-badge-plain">v1.0.9</span> (约 39.6MB)
       </div>
     </div>
   </div>
