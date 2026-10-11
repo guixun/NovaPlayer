@@ -1,8 +1,8 @@
 {
-  "version_code": 11,
-  "version_name": "1.1.0",
+  "version_code": 12,
+  "version_name": "1.1.1",
   "force_update": false,
-  "update_log": "NovaPlayer v1.1.0 更新：\n\n1. 【修复 HDR 泛白发灰与色彩映射】解决移动端播放 HDR 视频全屏发灰、泛白的问题，暗部纯净、高光层次更清晰；控制栏时间旁增加 HDR / 杜比视界标识，并支持点击一键切换为标准 SDR 映射；\n2. 【夸克与 115 网盘支持扫码登录】新增官方网页扫码登录通道，无需手动抓取 Cookie，手机扫码即可直接绑定网盘；\n3. 【播放历史支持一键定位原文件】播放历史列表支持点击“定位原文件”，快速跳转至视频所在文件夹，找剧找源更方便；\n4. 【横屏返回与底栏布局优化】全屏播放下优化系统返回键逻辑，按返回键直接退出播放器；微调控制栏排版，避免竖屏与窄屏下文字折行遮挡。",
-  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.1.0/app-release.apk",
+  "update_log": "NovaPlayer v1.1.1 更新：\n\n1. 【多存储聚合中心】主界面新增网络位置快捷抽屉，集中管理 SMB、WebDAV、AList、阿里云盘与夸克网盘，一键切换与测速；\n2. 【正式接入阿里云盘】支持手机 App 扫码与网页端快捷授权，自动打通影视资源库与备份盘，支持原画直通播放与失效自动重试；\n3. 【支持网络串流播放】新增网络串流面板，直接输入 HTTP/HTTPS/HLS 等在线视频直链即可起播，自带历史与收藏；\n4. 【播放器沉浸微进度条】全屏播放控制栏隐藏时可在底部常驻极简超薄进度条（设置中可开关）；\n5. 【本地隐藏文件夹管理】新增开关支持自主控制是否显示以“.”开头的系统隐藏文件及目录；\n6. 【体验与兼容性优化】修复底部提示条偶现常驻遮挡问题；优化爱快软路由 SMB 挂载稳定性与竖屏控制栏适配。",
+  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.1.1/app-release.apk",
   "backup_url": "https://pan.quark.cn/s/476cfe9cad6b"
 }
