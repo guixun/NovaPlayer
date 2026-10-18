@@ -1,8 +1,8 @@
 {
-  "version_code": 12,
-  "version_name": "1.1.1",
+  "version_code": 13,
+  "version_name": "1.1.2",
   "force_update": false,
-  "update_log": "NovaPlayer v1.1.1 更新：\n\n1. 【多存储聚合中心】主界面新增网络位置快捷抽屉，集中管理 SMB、WebDAV、AList、阿里云盘与夸克网盘，一键切换与测速；\n2. 【正式接入阿里云盘】支持手机 App 扫码与网页端快捷授权，自动打通影视资源库与备份盘，支持原画直通播放与失效自动重试；\n3. 【支持网络串流播放】新增网络串流面板，直接输入 HTTP/HTTPS/HLS 等在线视频直链即可起播，自带历史与收藏；\n4. 【播放器沉浸微进度条】全屏播放控制栏隐藏时可在底部常驻极简超薄进度条（设置中可开关）；\n5. 【本地隐藏文件夹管理】新增开关支持自主控制是否显示以“.”开头的系统隐藏文件及目录；\n6. 【体验与兼容性优化】修复底部提示条偶现常驻遮挡问题；优化爱快软路由 SMB 挂载稳定性与竖屏控制栏适配。",
-  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.1.1/app-release.apk",
+  "update_log": "NovaPlayer v1.1.2 更新：\n\n1. 【外置存储直读】重构 Android 本地存储探测，自动精准识别物理 SD 卡、TF 卡与 OTG U 盘，解决外部存储为空问题；\n2. 【全新任务中心】新增后台任务中心，集中管理上传、下载与离线 AI 字幕任务，支持平滑网速显示与记录本地持久化；\n3. 【播放智能选集】视频播放器顶部新增选集入口与集数胶囊，聚合同目录剧集并高亮当前集，支持一键无缝切集；\n4. 【跨目录文件移动】文件列表支持单选与多选文件/文件夹移动，内置智能目录选择器，轻松随心整理媒体文件；\n5. 【细节体验优化】新增上下滑动切视频独立开关与防误切死区，优化音频字幕面板滑块交互与平板横屏多选栏布局。",
+  "download_url": "https://ghfast.top/https://github.com/guixun/NovaPlayer/releases/download/v1.1.2/app-release.apk",
   "backup_url": "https://pan.quark.cn/s/476cfe9cad6b"
 }
